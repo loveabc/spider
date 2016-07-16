@@ -25,11 +25,11 @@ class Spider():
                 title,text,urls=self.parser.parse(content)#解析内容
                 self.data.append((title,url,text))
                 self.urlmanager.addurls(urls)
-                if self.__count%25==0:
+                if self.__count%25==0:#没获得25条数据,就往硬盘中写入一批,避免数据量太大,耗尽内存
                     self.outputer.output(self.data,self.__part)
                     self.data=[]
                     self.__part+=1
-                if self.__count==50:
+                if self.__count==500:#总共盘区500条数据
                     break
                 self.__count+=1
             except:
