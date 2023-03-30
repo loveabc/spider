@@ -40,6 +40,39 @@ if __name__=='__main__':
     spider=Spider()
     spider.caw(['/view/21087.htm'])
     
+
+public void testGetUsers01() {
+        User user = new User();
+        user.setName("Alice");
+        user.setAge(25);
+
+        doAnswer(invocation -> {
+            ResultHandler<User> resultHandler = invocation.getArgument(0);
+            resultHandler.handleResult(new ResultContext<User>() {
+                @Override
+                public User getResultObject() {
+                    return user;
+                }
+
+                @Override
+                public int getResultCount() {
+                    return 0;
+                }
+
+                @Override
+                public void stop() {
+                }
+
+                @Override
+                public boolean isStopped() {
+                    return false;
+                }
+            });
+            return null;
+        }).when(userMapper).selectUsers(any(ResultHandler.class));
+
+        userService.getUsers();
+    }
     
     
     
